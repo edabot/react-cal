@@ -74,7 +74,9 @@ const styles = StyleSheet.create({
   day: {
     height: 86.4,
     width: 109.44,
-    padding: 5
+    padding: 5,
+    borderWidth: .5,
+    borderColor: "#AAA"
   },
   day_green: {
       backgroundColor: "#F0F5EE",
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#F4FAFC",
   },
   day_ghost: {
-    color: '#505050'
+    color: "#505050"
   }
 });
 
@@ -100,40 +102,25 @@ Font.register(
 );
 
 const Day = ({date, dates}) => {
+    let style = styles.day
     let month = date.month() + 1
     if ( date.isBefore(dates.first_day) || date.isAfter(dates.last_day) ) {
-      return (
-        <View style={{...styles.day, ...styles.day_ghost}}>
-          <Text>{date.date()}</Text>
-        </View>
-      )
+      style={...style, ...styles.day_ghost}
     }
     else if ( month % 4 === 1 ) {
-        return (
-          <View style={{...styles.day, ...styles.day_green}}>
-            <Text>{date.date()}</Text>
-          </View>
-        )
+        style={...style, ...styles.day_green}
     } else if ( month % 4 === 2 ) {
-        return (
-          <View style={{...styles.day, ...styles.day_yellow}}>
-            <Text>{date.date()}</Text>
-          </View>
-        )
+      style={...style, ...styles.day_yellow}
     } else if ( month % 4 === 3 ) {
-        return (
-          <View style={{...styles.day, ...styles.day_red}}>
-            <Text>{date.date()}</Text>
-            </View>
-        )
+      style={...style, ...styles.day_red}
     } else {
-        return (
-          <View style={{...styles.day, ...styles.day_blue}}>
-            <Text>{date.date()}</Text>
-          </View>
-        )
+      style={...style, ...styles.day_blue}
     }
-
+    return (
+      <View style={style}>
+        <Text>{date.date()}</Text>
+      </View>
+    )
 }
 
 const Week = ({startDate, dates}) => {
@@ -153,18 +140,11 @@ const MonthCol = ({dates, weekCount}) => {
     for (let i=0; i < weekCount; i++) {
         weeks.push(moment(dates.cal_start).add(i * 7, 'days'));
     }
-    function showWeeks() {
-        return (
-            <View style={styles.weeks}>
-                {weeks.map((date) => <Week key={date} startDate={date} dates={dates}/>)}
-            </View>
-        )
-    }
 
     return (
-        <View>
-            {showWeeks()}
-        </View>
+      <View style={styles.weeks}>
+          {weeks.map((date) => <Week key={date} startDate={date} dates={dates}/>)}
+      </View>
     );
 };
 

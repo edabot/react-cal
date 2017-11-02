@@ -81,14 +81,26 @@ const styles = StyleSheet.create({
   day_green: {
       backgroundColor: "#F0F5EE",
   },
+  day_green_weekend: {
+      backgroundColor: "#E9EDE6",
+  },
   day_yellow: {
       backgroundColor: "#FEFEF7",
+  },
+  day_yellow_weekend: {
+      backgroundColor: "#F9F8EF",
   },
   day_red: {
       backgroundColor: "#FAF6F2",
   },
+  day_red_weekend: {
+      backgroundColor: "#F4EDE9",
+  },
   day_blue: {
       backgroundColor: "#F4FAFC",
+  },
+  day_blue_weekend: {
+      backgroundColor: "#EDF4F5",
   },
   day_ghost: {
     color: "#505050"
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
   right_border: {
     width: 108.44,
     marginRight: 1,
-  }
+  },
 });
 
 Font.register(`${__dirname}/fonts/Roboto-Regular.ttf`, { family: 'Roboto' });
@@ -119,23 +131,43 @@ Font.register(
 
 const Day = ({date, dates}) => {
     let style = styles.day,
+      weekend = false,
       month = date.month() + 1,
       tomorrow = moment(date).add(1, 'days'),
       weekFromNow = moment(date).add(7, 'days'),
       weekAgo = moment(date).subtract(7, 'days')
+      if ( date.day() === 0 || date.day() === 6 ) {
+        weekend = true
+      }
 
     //add month colors
     if ( date.isBefore(dates.first_day) || date.isAfter(dates.last_day) ) {
       style={...style, ...styles.day_ghost}
     }
     else if ( month % 4 === 1 ) {
+      if (weekend) {
+        style={...style, ...styles.day_green_weekend}
+      } else {
         style={...style, ...styles.day_green}
+      }
     } else if ( month % 4 === 2 ) {
-      style={...style, ...styles.day_yellow}
+      if (weekend) {
+        style={...style, ...styles.day_yellow_weekend}
+      } else {
+        style={...style, ...styles.day_yellow}
+      }
     } else if ( month % 4 === 3 ) {
-      style={...style, ...styles.day_red}
+      if (weekend) {
+        style={...style, ...styles.day_red_weekend}
+      } else {
+        style={...style, ...styles.day_red}
+      }
     } else {
-      style={...style, ...styles.day_blue}
+      if (weekend) {
+        style={...style, ...styles.day_blue_weekend}
+      } else {
+        style={...style, ...styles.day_blue}
+      }
     }
 
     //add month border margin
@@ -151,6 +183,8 @@ const Day = ({date, dates}) => {
     if (tomorrow.date() === 1 && tomorrow.day() !== 0 ) {
       style={...style, ...styles.right_border}
     }
+
+
 
     return (
       <View style={style}>

@@ -92,6 +92,22 @@ const styles = StyleSheet.create({
   },
   day_ghost: {
     color: "#505050"
+  },
+  top_border: {
+    height: 85.4,
+    marginTop: 1,
+  },
+  left_border: {
+    width: 108.44,
+    marginLeft: 1,
+  },
+  bottom_border: {
+    height: 85.4,
+    marginBottom: 1,
+  },
+  right_border: {
+    width: 108.44,
+    marginRight: 1,
   }
 });
 
@@ -102,8 +118,13 @@ Font.register(
 );
 
 const Day = ({date, dates}) => {
-    let style = styles.day
-    let month = date.month() + 1
+    let style = styles.day,
+      month = date.month() + 1,
+      tomorrow = moment(date).add(1, 'days'),
+      weekFromNow = moment(date).add(7, 'days'),
+      weekAgo = moment(date).subtract(7, 'days')
+
+    //add month colors
     if ( date.isBefore(dates.first_day) || date.isAfter(dates.last_day) ) {
       style={...style, ...styles.day_ghost}
     }
@@ -116,6 +137,21 @@ const Day = ({date, dates}) => {
     } else {
       style={...style, ...styles.day_blue}
     }
+
+    //add month border margin
+    if (date.date() <= 7 && weekAgo.isSameOrAfter(dates.first_day)) {
+      style={...style, ...styles.top_border}
+    }
+    if (date.date() == 1 && date.day() > 0 ) {
+      style={...style, ...styles.left_border}
+    }
+    if (weekFromNow.date() <= 7 && weekFromNow.isSameOrBefore(dates.last_day)) {
+      style={...style, ...styles.bottom_border}
+    }
+    if (tomorrow.date() === 1 && tomorrow.day() !== 0 ) {
+      style={...style, ...styles.right_border}
+    }
+
     return (
       <View style={style}>
         <Text>{date.date()}</Text>

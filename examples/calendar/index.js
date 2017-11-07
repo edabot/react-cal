@@ -26,6 +26,10 @@ let dates2 = {
   last_day: moment('2018-12-31')
 }
 
+let dayNames = [
+  'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'
+]
+
 const styles = StyleSheet.create({
   title: {
     margin: 20,

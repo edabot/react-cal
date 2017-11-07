@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
     borderWidth: .5,
     borderColor: "#AAA"
   },
+  date: {
+    color: "#555"
+  },
   day_green: {
       backgroundColor: "#F0F5EE",
   },
@@ -131,6 +134,7 @@ Font.register(
 
 const Day = ({date, dates}) => {
     let style = styles.day,
+      dateStyle = styles.date,
       weekend = false,
       month = date.month() + 1,
       tomorrow = moment(date).add(1, 'days'),
@@ -188,7 +192,7 @@ const Day = ({date, dates}) => {
 
     return (
       <View style={style}>
-        <Text>{date.date()}</Text>
+        <Text style={dateStyle}>{date.date()}</Text>
       </View>
     )
 }

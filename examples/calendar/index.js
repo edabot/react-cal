@@ -26,10 +26,6 @@ let dates2 = {
   last_day: moment('2018-12-31')
 }
 
-let dayNames = [
-  'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'
-]
-
 const styles = StyleSheet.create({
   title: {
     margin: 20,
@@ -43,7 +39,6 @@ const styles = StyleSheet.create({
   body: {
     padding: 54,
     flexGrow: 1,
-
   },
   row: {
     flexGrow: 1,
@@ -82,6 +77,7 @@ const styles = StyleSheet.create({
   },
   weekCount: {
     width: 34,
+    marginTop: 20,
   },
   weekNumber: {
     color: '#aaa',

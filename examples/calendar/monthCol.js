@@ -71,6 +71,12 @@ const styles = StyleSheet.create({
   weeks: {
       flexDirection: 'column',
   },
+  dayNames: {
+    width: 766,
+    flexDirection: 'row',
+    height: 20,
+    justifyContent: 'space-around',
+  },
   day: {
     height: 86.4,
     width: 109.44,
@@ -107,6 +113,10 @@ const styles = StyleSheet.create({
   },
   day_ghost: {
     color: "#505050"
+  },
+  dayName: {
+    fontSize: 14,
+    color: '#aaa',
   },
   top_border: {
     height: 85.4,
@@ -210,14 +220,21 @@ const Week = ({startDate, dates}) => {
 }
 
 const MonthCol = ({dates, weekCount}) => {
-    let weeks = []
+    let weeks = [],
+      dayNames = [ 'Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa' ]
     for (let i=0; i < weekCount; i++) {
         weeks.push(moment(dates.cal_start).add(i * 7, 'days'));
     }
 
     return (
-      <View style={styles.weeks}>
-          {weeks.map((date) => <Week key={date} startDate={date} dates={dates}/>)}
+      <View>
+        <View style={styles.dayNames}>
+          {dayNames.map(name => <Text key={name} style={styles.dayName}>{name}</Text>)}
+        </View>
+
+        <View style={styles.weeks}>
+            {weeks.map((date) => <Week key={date} startDate={date} dates={dates}/>)}
+        </View>
       </View>
     );
 };

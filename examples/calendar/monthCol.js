@@ -15,47 +15,6 @@ import {
 } from '@react-pdf/core';
 
 const styles = StyleSheet.create({
-  title: {
-    margin: 20,
-    fontSize: 25,
-    align: 'center',
-    backgroundColor: '#e4e4e4',
-    textDecoration: 'underline',
-    textTransform: 'uppercase',
-    fontFamily: 'Roboto',
-  },
-  body: {
-    padding: 54,
-    flexGrow: 1,
-
-  },
-  row: {
-    flexGrow: 1,
-    flexDirection: 'row',
-  },
-  rowYear: {
-    height: 100,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  rowCalendar: {
-    height: 100,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  year: {
-    color: '#aaa',
-    fontSize: 44,
-    textAlign: 'center',
-    flexGrow: 1,
-    width: 100
-  },
-  gutter: {
-    width: 88,
-  },
-  block: {
-    flexGrow: 1,
-  },
   text: {
     flexGrow: 3,
     margin: 10,
@@ -197,8 +156,6 @@ const Day = ({date, dates}) => {
     if (tomorrow.date() === 1 && tomorrow.day() !== 0 ) {
       style={...style, ...styles.right_border}
     }
-
-
 
     return (
       <View style={style}>

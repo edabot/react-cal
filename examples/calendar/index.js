@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     width: 100
   },
   gutter: {
-    width: 88,
+    width: 20,
   },
   block: {
     flexGrow: 1,
@@ -76,6 +76,21 @@ const styles = StyleSheet.create({
   monthCol: {
       width: 766,
   },
+  weekCount: {
+    width: 34,
+  },
+  weekNumber: {
+    color: '#aaa',
+    textAlign: 'center',
+    fontSize: 14,
+  },
+  weekNumContainer: {
+    height: 86.4,
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+
+  }
 });
 
 Font.register(`${__dirname}/fonts/Roboto-Regular.ttf`, { family: 'Roboto' });
@@ -83,6 +98,18 @@ Font.register(
   'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf',
   { family: 'Oswald' },
 );
+
+const WeekCount = ({start, end}) => {
+    let weeks = []
+    for (let i=start; i <= end; i++) {
+        weeks.push(i);
+    }
+    return (
+        <View style={styles.weekCount}>
+            {weeks.map((weekNumber) => <View key={weekNumber} style={styles.weekNumContainer}><Text style={styles.weekNumber}>{weekNumber}</Text></View>)}
+        </View>
+    )
+}
 
 const doc = (
   <Document>
@@ -97,7 +124,9 @@ const doc = (
           <View style={styles.monthCol}>
             <MonthCol dates={dates1} weekCount={26}/>
           </View>
+          <WeekCount start={1} end={26} />
           <View style={styles.gutter} />
+          <WeekCount start={27} end={52} />
           <View style={styles.monthCol}>
             <MonthCol dates={dates2} weekCount={27}/>
           </View>

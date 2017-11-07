@@ -76,20 +76,24 @@ const styles = StyleSheet.create({
       width: 766,
   },
   weekCount: {
-    width: 34,
+    width: 44,
     marginTop: 20,
   },
   weekNumber: {
     color: '#aaa',
-    textAlign: 'center',
     fontSize: 14,
   },
   weekNumContainer: {
     height: 86.4,
+    padding: 10,
     justifyContent: 'center',
     flexDirection: 'column',
-    alignItems: 'center',
-
+  },
+  left: {
+    alignItems: 'flex-start',
+  },
+  right: {
+    alignItems: 'flex-end',
   }
 });
 
@@ -99,14 +103,20 @@ Font.register(
   { family: 'Oswald' },
 );
 
-const WeekCount = ({start, end}) => {
-    let weeks = []
+const WeekCount = ({start, end, side}) => {
+    let weeks = [],
+      numStyle = styles.weekNumContainer
     for (let i=start; i <= end; i++) {
         weeks.push(i);
     }
+    if ( side === "left" ) {
+      numStyle = {...numStyle, ...styles.left}
+    } else {
+      numStyle = {...numStyle, ...styles.right}
+    }
     return (
         <View style={styles.weekCount}>
-            {weeks.map((weekNumber) => <View key={weekNumber} style={styles.weekNumContainer}><Text style={styles.weekNumber}>{weekNumber}</Text></View>)}
+            {weeks.map((weekNumber) => <View key={weekNumber} style={numStyle}><Text style={styles.weekNumber}>{weekNumber}</Text></View>)}
         </View>
     )
 }
@@ -124,9 +134,8 @@ const doc = (
           <View style={styles.monthCol}>
             <MonthCol dates={dates1} weekCount={26}/>
           </View>
-          <WeekCount start={1} end={26} />
-          <View style={styles.gutter} />
-          <WeekCount start={27} end={52} />
+          <WeekCount start={1} end={26} side={"left"}/>
+          <WeekCount start={27} end={52} side={"right"}/>
           <View style={styles.monthCol}>
             <MonthCol dates={dates2} weekCount={27}/>
           </View>

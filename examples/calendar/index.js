@@ -15,15 +15,17 @@ import {
 } from '@react-pdf/core';
 import MonthCol from './monthCol'
 
+let year = 2019
+
 let dates1 = {
-  cal_start: moment('2018-01-01').startOf('week'),
-  first_day: moment('2018-01-01'),
-  last_day: moment('2018-06-30')
+  cal_start: moment(year + '-01-01').startOf('week'),
+  first_day: moment(year + '-01-01'),
+  last_day: moment(year + '-06-30')
 }
 let dates2 = {
-  cal_start: moment('2018-07-01').startOf('week'),
-  first_day: moment('2018-07-01'),
-  last_day: moment('2018-12-31')
+  cal_start: moment(year + '-07-01').startOf('week'),
+  first_day: moment(year + '-07-01'),
+  last_day: moment(year + '-12-31')
 }
 
 const styles = StyleSheet.create({
@@ -127,15 +129,15 @@ const doc = (
       <View style={styles.body}>
           <View style={styles.rowYear}>
               <View>
-                  <Text style={styles.year}>2018</Text>
+                  <Text style={styles.year}>{year}</Text>
               </ View>
           </View>
         <View style={styles.rowCalendar}>
           <View style={styles.monthCol}>
-            <MonthCol dates={dates1} weekCount={26}/>
+            <MonthCol dates={dates1} weekCount={27}/>
           </View>
           <WeekCount start={1} end={26} side={"left"}/>
-          <WeekCount start={27} end={52} side={"right"}/>
+          <WeekCount start={27} end={53} side={"right"}/>
           <View style={styles.monthCol}>
             <MonthCol dates={dates2} weekCount={27}/>
           </View>
